@@ -1,27 +1,27 @@
-import mongoose, { Mongoose } from "mongoose";
+import mongoose from "mongoose";
 
 const TaskSchema = mongoose.Schema({
   name: {
     type: String,
     required: true,
   },
-  time: {
+  timeToComplete: {
     type: Number,
     required: true,
   },
   type: {
     type: String,
-    default: "entry",
+    default: 'Entry'
   },
   difficulty: {
     type: String,
-    default: "easy",
+    default: 'Easy'
   },
   priority: {
     type: String,
-    default: "low",
-  },
-});
+    default: 'Low'
+  }
+})
 
-const taskModel = mongoose.model("task", TaskSchema);
-export default taskModel;
+const taskModel = mongoose.model("task", TaskSchema)
+export default taskModel

@@ -1,29 +1,30 @@
-//  This file has functios to exxecute the queries!!!!!
-//  Database operations
-//CRUD opearations -->
+// This file has functions to execute Queries
+// Database operations
+//CRUD operatons -> TASK Resource
 
-import taskSchema from "../schema/taskSchema.js";
+import taskModel from "../schema/taskSchema.js";
 
-//for get endpoint
+// Read
 export const getTasks = () => {
-  return taskSchema.find();
-};
+  return taskModel.find();
+}
 
+// Read One
 export const getTask = (id) => {
-  return taskSchema.findById(id);
-};
+  return taskModel.findById(id)
+}
 
-//create
+// Create
 export const createTask = (taskObject) => {
-  return taskSchema(taskObject).save();
-};
+  return taskModel(taskObject).save()
+}
 
-//update
+// Update
 export const updateTask = (id, updatedData) => {
-  return taskSchema.findByIdAndUpdate(id, updatedData);
-};
+  return taskModel.findByIdAndUpdate(id, updatedData)
+}
 
-//update
+// Delete
 export const deleteTask = (id) => {
-  return taskSchema.findByIdAndDelete(id);
-};
+  return taskModel.findByIdAndDelete(id)
+}

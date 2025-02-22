@@ -1,97 +1,99 @@
-import express from "express";
-import { createTask, getTask, getTasks } from "../model/taskModel.js";
+import express from 'express'
+import { createTask, deleteTask, getTask, getTasks, updateTask } from '../model/taskModel.js'
 
-const taskRouter = express.Router();
+const taskRouter = express.Router()
 
-// Index | Get
+// Index | Get all Tasks
 taskRouter.get("/", (req, res) => {
   getTasks()
-    .then((tasks) => {
+    .then(tasks => {
       res.json({
         status: "success",
-        data: tasks,
-      });
+        data: tasks
+      })
     })
-    .catch((error) => {
+    .catch(error => {
       res.json({
         status: "error",
-        data: error.message,
-      });
-    });
-});
+        error: error.message || 'Could not fetch tasks'
+      })
+    })
+})
 
-// Show | Single id
+// Show | Get single Task
 taskRouter.get("/:id", (req, res) => {
-  getTask()
-    .then((task) => {
+  getTask(req.params.id)
+    .then(task => {
       res.json({
         status: "success",
-        data: task,
-      });
+        data: task
+      })
     })
-    .catch((error) => {
+    .catch(error => {
       res.json({
         status: "error",
-        data: error.message,
-      });
-    });
-});
+        error: error.message || 'Could not fetch tasks'
+      })
+    })
+})
 
-//create post
+// CREATE | POST single Task
 taskRouter.post("/", (req, res) => {
-  const taskOject = req.body;
-  createTask(taskOject)
-    .then((task) => {
+  const taskObject = req.body
+
+  createTask(taskObject)
+    .then(task => {
       res.json({
         status: "success",
-        message: "task created",
-        data: task,
-      });
+        message: "Task created",
+        data: task
+      })
     })
-    .catch((error) => {
+    .catch(error => {
       res.json({
         status: "error",
-        data: error.message,
-      });
-    });
-});
+        error: error.message || 'Could not create task'
+      })
+    })
+})
 
-//patch modify
+// UPDATE | PATCH single Task
 taskRouter.patch("/:id", (req, res) => {
-  const updatedTaskOject = req.body;
-  const id = req.params.id;
-  createTask(id, updatedTaskOject)
-    .then((task) => {
+  const udpatedTaskObject = req.body
+  const id = req.params.id
+
+  updateTask(id, udpatedTaskObject)
+    .then(task => {
       res.json({
         status: "success",
-        message: "task created",
-        data: task,
-      });
+        message: "Task Updated",
+        data: task
+      })
     })
-    .catch((error) => {
+    .catch(error => {
       res.json({
         status: "error",
-        data: error.message,
-      });
-    });
-});
+        error: error.message || 'Could not create task'
+      })
+    })
+})
 
+// DELETE | Delete single Task
 taskRouter.delete("/:id", (req, res) => {
-  const id = req.params.id;
-
-  getTask(id)
-    .then((task) => {
+  deleteTask(req.params.id)
+    .then(task => {
       res.json({
         status: "success",
-        data: task,
-      });
+        message: "Task Delted",
+        data: task
+      })
     })
-    .catch((error) => {
+    .catch(error => {
       res.json({
         status: "error",
-        data: error.message,
-      });
-    });
-});
+        error: error.message || 'Could not fetch tasks'
+      })
+    })
+})
 
-export default taskRouter;
+export default taskRouter

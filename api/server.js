@@ -1,24 +1,30 @@
-import express from "express";
-import { connectToMongo } from "./config/dbConfig.js";
+import express from "express"
+import cors from "cors"
+import { connectToMongoDb } from "./src/config/dbConfig.js";
 import taskRouter from "./src/router/taskRouter.js";
 
-const app = express();
+const app = express()
+const PORT = 8000
 
-const PORT = 3000;
-
+// middleware to parse request
 app.use(express.json());
+//Define config for CORS
+const corsOption = {
+  credentials: true,
+  origin: true // is an array with the list of whitelisted domains
+}
+app.use(cors(corsOption))
 
-//connect to mongo db calling from config
-connectToMongo();
+// Connect to Mongo Db
+connectToMongoDb()
 
-app.use("/api/tasks", taskRouter);
 
-//task
+// Task Routes | Controller
+app.use('/api/tasks', taskRouter)
 
-app.listen(PORT, (error) => {
-  error
-    ? console.log("error", error)
-    : console.log(
-        "congrats your server is running successfully http://localhost:" + PORT
-      );
-});
+// start a server
+app.listen(PORT, (error)=>{
+  error ? 
+    console.log("Error", error) : 
+    console.log("Your seerver is running at http://localhost:" + PORT)
+})
