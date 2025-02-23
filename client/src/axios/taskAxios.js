@@ -1,7 +1,9 @@
 import axios from "axios";
 
 // This file sends api request for task resource
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const API_BASE_URL = import.meta.env.PROD
+  ? "https://nttdlfullstact.onrender.com"
+  : import.meta.env.VITE_API_BASE_URL;
 const TASK_ENPOINT = "/api/tasks";
 
 // FRONTEND CRUD OPERATIONS
@@ -44,5 +46,5 @@ export const updateTaskRequest = (id, taskObject) => {
     .then((res) => res.data)
     .catch((error) => error);
 
-    return response
+  return response;
 };

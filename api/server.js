@@ -22,7 +22,7 @@ app.use(cors(corsOption));
 connectToMongoDb();
 
 //SSR sever side rendering using node js
-app.use("/", express.static(path.join(_dirname, 'frontendBuild')));
+app.use("/", express.static(path.join(_dirname, "frontendBuild")));
 
 // Task Routes | Controller
 app.use("/api/tasks", taskRouter);
